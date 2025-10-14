@@ -1,0 +1,26 @@
+name: Close Pull Request
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login != 'github-actions[bot]' && github.event.pull_request.author_association == 'NONE'
+    steps:
+      - name: Update and Close PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr -R "${REPO}" edit "${PR_NUMBER}" --add-label "invalid" --add-label "wontfix"
+          gh pr -R "${REPO}" close "${PR_NUMBER}" -c '> [!IMPORTANT]
+          > PRs are not accepted. Sorry.'
+          gh pr -R "${REPO}" lock "${PR_NUMBER}"
