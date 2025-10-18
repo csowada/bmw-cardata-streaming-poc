@@ -1,0 +1,19 @@
+services:
+  bmw-cardata:
+    build:
+      context: .
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+      - "./bmw_tokens.json:/app/bmw_tokens.json"
+      - "./bmw_webui_cache.json:/app/bmw_webui_cache.json"
+      - "./bmw_data_catalogue.json:/app/bmw_data_catalogue.json"
+    env_file:
+      - path: "./.env"
+        required: true
+    ports:
+      - 5000:5000
+    environment:
+      LC_ALL: "de_DE.UTF-8"
+      LANG: "de_DE.UTF-8"
+      LANGUAGE: "de_DE.UTF-8"

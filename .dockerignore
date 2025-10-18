@@ -1,0 +1,16 @@
+.git/
+.github/
+.gitignore
+
+.dockerignore
+Dockerfile
+docker-compose.yaml
+
+.env
+bmw_tokens.json
+bmw_webui_cache.json
+
+README.MD
+AUTHENTICATION.md
+bmw_docs/
+.env.example
