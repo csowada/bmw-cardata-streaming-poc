@@ -320,6 +320,8 @@ class BMWCarDataClient:
                 "mqtt_password": self.tokens.get("id_token", {}).get("token"),
                 "topic": f"{self.tokens.get('gcid')}/{self.vin}",
                 "expires_at": self.tokens.get("id_token", {}).get("expires_at"),
+
+                "access_token": self.tokens.get("access_token", {}).get("token")
             }
             self.token_refresh_callback(token_info)
 
